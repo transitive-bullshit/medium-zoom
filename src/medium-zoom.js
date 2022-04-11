@@ -235,6 +235,7 @@ const mediumZoom = (selector, options = {}) => {
       viewportHeight =
         viewportHeight || container.height - zoomOptions.margin * 2
 
+      const minZoomScale = zoomOptions.minZoomScale || 1
       const zoomTarget = active.zoomedHd || active.original
       const naturalWidth = isSvg(zoomTarget)
         ? viewportWidth
@@ -244,8 +245,14 @@ const mediumZoom = (selector, options = {}) => {
         : zoomTarget.naturalHeight || viewportHeight
       const { top, left, width, height } = zoomTarget.getBoundingClientRect()
 
-      const scaleX = Math.min(naturalWidth, viewportWidth) / width
-      const scaleY = Math.min(naturalHeight, viewportHeight) / height
+      const scaleX =
+        Math.min(Math.max(naturalWidth * minZoomScale, width), viewportWidth) /
+        width
+      const scaleY =
+        Math.min(
+          Math.max(naturalHeight * minZoomScale, height),
+          viewportHeight
+        ) / height
       const scale = Math.min(scaleX, scaleY)
       const translateX =
         (-left +
@@ -515,6 +522,7 @@ const mediumZoom = (selector, options = {}) => {
     margin: 0,
     background: '#fff',
     scrollOffset: 40,
+    minZoomScale: 1,
     container: null,
     template: null,
     ...zoomOptions,
