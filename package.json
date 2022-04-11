@@ -1,5 +1,9 @@
 {
-  "name": "medium-zoom",
+  "name": "@fisch0920/medium-zoom",
+  "publishConfig": {
+    "tag": "latest",
+    "access": "public"
+  },
   "version": "1.0.6",
   "description": "A JavaScript library for zooming images like Medium",
   "license": "MIT",
